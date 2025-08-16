@@ -12,7 +12,7 @@ public class BotPlayingStrategyFactory {
             case HARD:
                 return new HardBotPlayingStrategy();
             default:
-                return null;
+                throw new IllegalArgumentException("Unsupported bot difficulty level: " + botDifficultyLevel);
         }
     }
 }

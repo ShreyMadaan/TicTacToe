@@ -13,7 +13,7 @@ public class Player {
         this.id = id;
         this.name = name;
         this.symbol = symbol;
-        this.playerType = playerType;
+        this.type = playerType;
         this.hasUsedUndo = false;
     }
 

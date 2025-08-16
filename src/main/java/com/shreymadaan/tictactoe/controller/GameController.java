@@ -76,12 +76,30 @@ public class GameController {
 //            TODO: validate row and columnbefore executing
             return gameService.executeMove(player, game, row, column);
         }else{
-            return gameService.executeMove(player, game);
+            return gameService.executeMove((Bot) player, game);
         }
     }
 
     public GameState checkWinner(Board board, Move move){
-        return null;
+        com.shreymadaan.tictactoe.service.strategy.WinnerCheckStrategy row = new com.shreymadaan.tictactoe.service.strategy.RowWinningStrategy();
+        com.shreymadaan.tictactoe.service.strategy.WinnerCheckStrategy col = new com.shreymadaan.tictactoe.service.strategy.ColumnWinningStrategy();
+        com.shreymadaan.tictactoe.service.strategy.WinnerCheckStrategy diag = new com.shreymadaan.tictactoe.service.strategy.DiagnolWinningStrategy();
+        Player winner = null;
+        winner = (winner != null) ? winner : row.checkWinner(board, move);
+        winner = (winner != null) ? winner : col.checkWinner(board, move);
+        winner = (winner != null) ? winner : diag.checkWinner(board, move);
+        if (winner != null) return GameState.WON;
+        // check draw
+        boolean anyEmpty = false;
+        for (List<Cell> cells : board.getCells()) {
+            for (Cell cell : cells) {
+                if (cell.getCellState() == com.shreymadaan.tictactoe.model.constants.CellState.EMPTY) {
+                    anyEmpty = true; break;
+                }
+            }
+            if (anyEmpty) break;
+        }
+        return anyEmpty ? GameState.IN_PROGRESS : GameState.DRAW;
     }
 
     public Game undo(int moves, Game game){

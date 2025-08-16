@@ -27,10 +27,10 @@ public class Cell {
     public void setCol(int col) {
         this.col = col;
     }
-    public CellState getState() {
+    public CellState getCellState() {
         return state;
     }
-    public void setState(CellState state) {
+    public void setCellState(CellState state) {
         this.state = state;
     }
     public Player getPlayer() {

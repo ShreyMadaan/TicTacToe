@@ -9,14 +9,18 @@ import com.shreymadaan.tictactoe.model.*;
 import com.shreymadaan.tictactoe.model.constants.BotDifficultyLevel;
 import com.shreymadaan.tictactoe.model.constants.GameState;
 import com.shreymadaan.tictactoe.model.constants.PlayerType;
+import com.shreymadaan.tictactoe.service.GameService;
 import com.shreymadaan.tictactoe.service.PlayerService;
 
 public class GameController {
     private Scanner sc;
     private PlayerService playerService;
-    public GameController(PlayerService playerService){
+    private GameService gameService;
+
+    public GameController(PlayerService playerService, GameService gameService){
         this.sc = new Scanner(System.in);
         this.playerService = playerService;
+        this.gameService = gameService;
     }
 
     public List<Player> generatePlayerList(int playerCount){
@@ -69,9 +73,10 @@ public class GameController {
             int row = sc.nextInt();
             System.out.println("Please Enter the Column");
             int column = sc.nextInt();
-
+//            TODO: validate row and columnbefore executing
+            return gameService.executeMove(player, game, row, column);
         }else{
-
+            return gameService.executeMove(player, game);
         }
     }
 
